@@ -37,9 +37,8 @@ module.exports = {
     }
 
     if(selected.length != 2) {
-      this.roulette(generation);
+      return this.roulette(generation);
     } else {
-      console.log(selected);
       return selected;
     }
   },

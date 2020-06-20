@@ -24,7 +24,7 @@ module.exports = function fitness(individual) {
 
   let totalDistance = distance.reduce((cityA, cityB) => cityA + cityB);
 
-  return totalDistance;
+  return [individual, totalDistance];
 }
 
 

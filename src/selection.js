@@ -12,9 +12,9 @@ module.exports = {
       let r = Math.floor(Math.random() * 2);
 
       if(r<k) {
-        selected.push(aux[r]);
+        selected.push(aux[r][0]);
       } else {
-        selected.push(aux[r]);
+        selected.push(aux[r][0]);
       }
     };
 
@@ -31,7 +31,7 @@ module.exports = {
 
       generation.forEach((ind, index) => {
         if(ind[1] >= r) {
-          selected.push(ind);
+          selected.push(ind[0]);
         }
       });
     }

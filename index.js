@@ -3,25 +3,38 @@ const readline = require('readline-sync');
 const createRadomGeneration = require('./src/generations/createRandomGeneration');
 const selection = require('./src/selection');
 const crossover = require('./src/generations/crossover');
+const mutation = require('./src/generations/mutation');
 
 // interação com o usuário no terminal
-const chooseSelection = readline.keyInSelect(['Torneio', 'Roleta'], 'Qual tipo de selecao? ');
 
-let populationSize;
-if (chooseSelection != -1) {
-  populationSize = readline.questionInt('\n\nQual o tamanho da populacao? ', {
-    limitMessage: '\n"$<lastInput>" nao e um valor valido, \npor favor, insira um numero inteiro.\n\n'
-  });
-} else {
-  console.log('\n');
-  return;
-}
+
+let populationSize = readline.questionInt('\n\nQual o tamanho da populacao? ', {
+  limitMessage: '\n"$<lastInput>" nao e um valor valido, \npor favor, insira um numero inteiro.\n\n'
+});
 
 numberOfPopulations = readline.questionInt('\n\nQuantas geracoes? ', {
   limitMessage: '\n"$<lastInput>" nao e um valor valido, \npor favor, insira um numero inteiro.\n\n'
 });
 
 let count = 2;
+
+var a = readline,
+  MAX = 100, MIN = 0, percents = 0, key;
+console.log('\n\n' + (new Array(20)).join(' ') +
+  '[Z] <- -> [X]  FIX: [SPACE]\n');
+while (true) {
+  console.log('\x1B[1A\x1B[K|' +
+    (new Array(percents + 1)).join('-') + 'O' +
+    (new Array(MAX - percents + 1)).join('-') + '| ' + percents + '%');
+  key = readline.keyIn('',
+    {hideEchoBack: true, mask: '', limit: 'zx '});
+  if (key === 'z') { if (percents > MIN) { percents--; } }
+  else if (key === 'x') { if (percents < MAX) { percents++; } }
+  else { break; }
+}
+
+console.log('\nAs gerações terão ' + percents + '% de mutação');
+
 
 // cria a geração inicial
 console.log('\n1ª geração:')
@@ -37,24 +50,13 @@ function main(population) {
   let generation = [];
   let selected;
   
-  // verifica qual tipo de seleção foi escolhida pelo usuário
-  if (chooseSelection === 0) {
-    while (generation.length < populationSize) {
-      selected = selection.tournament(population);
+  while (generation.length < populationSize) {
+    selected = selection.tournament(population);
 
-      // realiza a reprodução dos individuos selecionados e retorna seus filhos
-      let children = crossover(selected);
-      generation.push(children);
-    }
-
-  } else if (chooseSelection === 1) {
-    while (generation.length < populationSize) {
-      selected = selection.roulette(population);
-      
-      // realiza a reprodução dos individuos selecionados e retorna seus filhos
-      let children = crossover(selected);
-      generation.push(children);
-    }
+    // realiza a reprodução dos individuos selecionados e retorna seus filhos
+    let children = crossover(selected);
+    let mutated = mutation(children, percents);
+    generation.push(mutated);
   }
 
   console.log(`\n${count}ª geração:`);

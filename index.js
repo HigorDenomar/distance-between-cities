@@ -52,9 +52,12 @@ function main(population) {
   
   while (generation.length < populationSize) {
     selected = selection.tournament(population);
+   // console.log(selected);
 
     // realiza a reprodução dos individuos selecionados e retorna seus filhos
+   // console.log('\n\nFilho')
     let children = crossover(selected);
+  //  console.log(children);
     let mutated = mutation(children, percents);
     generation.push(mutated);
   }

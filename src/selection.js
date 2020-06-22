@@ -4,10 +4,14 @@ module.exports = {
     let selected = [];
 
     for(let i = 0; i < size; i++) {
-      let ind1 = generation[Math.floor(Math.random() * generation.length)];
-      let ind2 = generation[Math.floor(Math.random() * generation.length)];
+      let ind = [];
+      
+      while(ind.length < 2) {
+        let sort = generation[Math.floor(Math.random() * generation.length)];
+        if(ind.indexOf(sort) == -1) ind.push(sort);
+      }
 
-      let aux = [ind1, ind2];
+      let aux = [ind[0], ind[1]];
 
       let r = Math.floor(Math.random() * 2);
 

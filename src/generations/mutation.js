@@ -6,9 +6,9 @@ module.exports = function mutation(individual, percents) {
   if (rand <= percents) {
     let index = [];
 
-    for (let i = 0; i < 2; i++) {
+    while(index.length < 2) {
       let rand = Math.floor(Math.random() * 10);
-      index.push(rand);
+      if(index.indexOf(rand) == -1) index.push(rand);
     }
 
     let aux = individual[index[0]];

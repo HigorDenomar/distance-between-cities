@@ -15,7 +15,7 @@ let percents = userInteraction.percentage();
 const initialGeneration = createRadomGeneration(populationSize); // cria a geração inicial
 printGeneration(initialGeneration, 1); // mostra a geração no terminal
 
-userInteraction.stop(); // espera confirmação do usuário pra continuar
+let stopping = userInteraction.confirmation(); // pergunta se o usuário quer pausar o terminal em cada geração
 
 let count = 2;
 
@@ -24,19 +24,16 @@ function main(population) { // função pra criar as próximas gerações
 
   while (generation.length < populationSize) {
     let selected = selection.tournament(population, numberOfFighters); // 2 indivíduos da população anterior
-    console.log('\n\nPais:');
-    console.log(selected);
 
     let children = crossover(selected); // reproduz os individuos selecionados
-    console.log('\nFilho:');
-    console.log(children);
 
     let mutated = mutation(children, percents); // realiza ou não a mutação do filho
     generation.push(mutated); // adiciona o filho na nova população (geração)
   }
 
   printGeneration(generation, count); // mostra a nova geração pro usuário
-  userInteraction.stop(); // espera confirmação pra continuar
+
+  if(stopping) userInteraction.stop(); // espera confirmação pra continuar
 
   if (count < numberOfPopulations) {
     count++;

@@ -27,6 +27,12 @@ module.exports = {
     return value;
   },
 
+  confirmation() {
+    let yesOrNo = readline.keyInYN('\n\nQuer pausar a cada geracao? ');
+
+    return yesOrNo;
+  },
+
   stop() {
     console.log('\n');
     readline.keyInPause('Pressione qualquer tecla para continuar...');

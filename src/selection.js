@@ -1,23 +1,35 @@
 
 module.exports = {
-  tournament(generation, size = 2, k = 75) {
+  tournament(generation, numberOfFighters, size = 2, k = 75) {
     let selected = [];
 
     for(let i = 0; i < size; i++) {
       let ind = [];
       
-      while(ind.length < 2) {
+      while(ind.length < numberOfFighters) {
         let sort = generation[Math.floor(Math.random() * generation.length)];
         if(ind.indexOf(sort) == -1) ind.push(sort);
       }
 
+      let winner;
+      ind.forEach((a, b) => {
+        if(winner) {
+          if(a[1] < winner[1]) winner = a;
+        } else {
+          winner = a;
+        }
+      });
+
+      selected.push(winner[0]);
+
+      /*
       let r = Math.floor(Math.random() * 101);
 
       if(r<k) {
         selected.push(ind[0][0]);
       } else {
         selected.push(ind[1][0]);
-      }
+      }*/
     };
 
     return selected;

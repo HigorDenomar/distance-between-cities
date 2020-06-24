@@ -1,4 +1,4 @@
-const fitness = require('./fitness');
+const fitness = require('./generations/fitness');
 
 module.exports = function mutation(individual, percents) {
   let rand = Math.floor(Math.random() * 101);

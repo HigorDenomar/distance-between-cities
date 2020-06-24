@@ -9,6 +9,7 @@ const printGeneration = require('./src/utils/printGeneration');
 // interação com o usuário no terminal
 let populationSize = userInteraction.question('Qual o tamanho da populacao?');
 let numberOfPopulations = userInteraction.question('Quantas geracoes?');
+let numberOfFighters = userInteraction.question('Quantos individuos irao batalhar?');
 let percents = userInteraction.percentage();
 
 const initialGeneration = createRadomGeneration(populationSize); // cria a geração inicial
@@ -22,7 +23,7 @@ function main(population) { // função pra criar as próximas gerações
   let generation = []; // nova geração
 
   while (generation.length < populationSize) {
-    let selected = selection.tournament(population); // 2 indivíduos da população anterior
+    let selected = selection.tournament(population, numberOfFighters); // 2 indivíduos da população anterior
     console.log('\n\nPais:');
     console.log(selected);
 

@@ -14,7 +14,7 @@ module.exports = function createRandomGeneration(size = 15, individualSize = 10)
     let apt = fitness(individual); // envia o indivíduo pra função de aptidão (fitness) e retorna a sua distância;
 
     let verify = generation.map(ind => {
-      if(ind.toString() === individual.toString()) {
+      if(ind.toString() === apt.toString()) {
         return true;
       } else return false;
     });

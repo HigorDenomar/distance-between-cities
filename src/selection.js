@@ -1,6 +1,6 @@
 
 module.exports = {
-  tournament(generation, size = 2, k = 0.75) {
+  tournament(generation, size = 2, k = 75) {
     let selected = [];
 
     for(let i = 0; i < size; i++) {
@@ -11,14 +11,12 @@ module.exports = {
         if(ind.indexOf(sort) == -1) ind.push(sort);
       }
 
-      let aux = [ind[0], ind[1]];
-
-      let r = Math.floor(Math.random() * 2);
+      let r = Math.floor(Math.random() * 101);
 
       if(r<k) {
-        selected.push(aux[r][0]);
+        selected.push(ind[0][0]);
       } else {
-        selected.push(aux[r][0]);
+        selected.push(ind[1][0]);
       }
     };
 
